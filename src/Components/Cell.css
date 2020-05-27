@@ -1,3 +1,18 @@
-.cell {
-  border: 1px solid black;
+.dead {
+  border: 1px solid white;
+  width: 15px;
+  height: 15px;
+}
+
+.dead:hover {
+  background-color: gray;
+}
+
+.alive {
+  border: 1px solid pink;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  margin-left: -1px;
+  margin-bottom: -1px;
 }
