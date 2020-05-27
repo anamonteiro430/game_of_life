@@ -1,10 +1,9 @@
 .App {
   text-align: center;
   background-color: #313e50;
-  height: 100vh;
 }
 
 .root {
   background-color: #313e50;
-  height: 90vh;
+  height: auto;
 }
