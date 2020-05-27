@@ -9,16 +9,21 @@ function App() {
   const numColumns = 50;
   const spedd = 100;
 
+  /* Helper function to clone array */
+  function arrayClone(arr) {
+    return JSON.parse(JSON.stringify(arr));
+  }
+
   const [state, setState] = useState({
     gen: 0,
     grid: Array(numRows)
       .fill()
-      .map(() => Array(numColumns).fill(0)),
+      .map(() => Array(numColumns).fill(false)),
   });
 
-  const selectCell = (numRows, numColumns) => {
-    let newGrid = Array(state.grid);
-    newGrid[numRows][numColumns] = !newGrid[numRows][numColumns];
+  const selectCell = (row, column) => {
+    let newGrid = arrayClone(state.grid);
+    newGrid[row][column] = !newGrid[row][column];
     setState({
       grid: newGrid,
     });

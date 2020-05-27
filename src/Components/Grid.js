@@ -28,6 +28,8 @@ export const Grid = (props) => {
     }
   }
 
+  console.log("this is rows array", rows);
+
   return (
     <>
       <div className="grid" style={{ width: width }}>

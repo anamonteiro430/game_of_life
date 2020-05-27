@@ -2,6 +2,8 @@
   border: 1px solid white;
   width: 15px;
   height: 15px;
+  margin-left: -1px;
+  margin-bottom: -1px;
 }
 
 .dead:hover {
@@ -15,4 +17,5 @@
   margin: 0;
   margin-left: -1px;
   margin-bottom: -1px;
+  background-color: black;
 }
