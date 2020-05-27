@@ -21,7 +21,11 @@ function App() {
       .map(() => Array(numColumns).fill(false)),
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("seeding gridddddd");
+    /*     seedGrid();
+     */
+  }, []);
 
   const selectCell = (row, column) => {
     let newGrid = arrayClone(state.grid);
@@ -47,41 +51,45 @@ function App() {
     });
   };
   const simulation = () => {
+    console.log("simultaing");
     let gen = state.grid;
     let nextGen = arrayClone(state.grid);
 
-    for (let x = 0; x < numRows; x++) {
-      for (let y = 0; y < numColumns; y++) {
+    for (let x = 1; x < numRows - 1; x++) {
+      for (let y = 1; y < numColumns - 1; y++) {
         let neighbors = 0;
-        if (gen[x - 1][y + 1] === 1) {
+        if (gen[x - 1][y + 1]) {
           neighbors++;
         }
-        if (gen[x][y + 1] === 1) {
+        if (gen[x][y + 1]) {
           neighbors++;
         }
-        if (gen[x + 1][y + 1] === 1) {
+        if (gen[x + 1][y + 1] === true) {
           neighbors++;
         }
-        if (gen[x - 1][y] === 1) {
+        if (gen[x - 1][y]) {
           neighbors++;
         }
-        if (gen[x + 1][y] === 1) {
+        if (gen[x + 1][y]) {
           neighbors++;
         }
-        if (gen[x - 1][y - 1] === 1) {
+        if (gen[x - 1][y - 1]) {
           neighbors++;
         }
-        if (gen[x][y - 1] === 1) {
+        if (gen[x][y - 1]) {
           neighbors++;
         }
-        if (gen[x + 1][y - 1] === 1) {
+        if (gen[x + 1][y - 1]) {
           neighbors++;
         }
-        if ((gen[x][y] = (true && neighbors < 2) || neighbors > 3)) {
-          nextGen[x][y] === false;
+        if ((gen[x][y] && neighbors < 2) || (gen[x][y] && neighbors > 3)) {
+          nextGen[x][y] = false;
         }
-        if ((gen[x][y] = false && neighbors === 3)) {
-          nextGen[x][y] === true;
+        if ((gen[x][y] && neighbors === 2) || (gen[x][y] && neighbors === 3)) {
+          nextGen[x][y] = true;
+        }
+        if (gen[x][y] === false && neighbors === 3) {
+          nextGen[x][y] = true;
         }
       }
     }
@@ -97,7 +105,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header seedGrid={seedGrid} simulation={simulation} />
       <Grid
         numColumns={numColumns}
         numRows={numRows}
@@ -105,7 +113,6 @@ function App() {
         selectCell={selectCell}
       />
       <Gen state={state} />
-      <Header seedGrid={seedGrid} />
     </div>
   );
 }

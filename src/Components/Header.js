@@ -11,6 +11,7 @@ export const Header = (props) => {
         <h1>Game of Life</h1>
         <div className="controls">
           <button onClick={seed}>Seed</button>
+          <button onClick={props.simulation}>Start</button>
         </div>
       </div>
     </>
