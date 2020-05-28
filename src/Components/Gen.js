@@ -6,7 +6,7 @@ export const Gen = (props) => {
   return (
     <>
       <div class="gen">
-        <h2>Generation: {props.state.gen}</h2>
+        <h2>Generation: {props.state.generation}</h2>
       </div>
     </>
   );

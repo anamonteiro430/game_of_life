@@ -21,17 +21,19 @@ function App() {
       .map(() => Array(numColumns).fill(false)),
   });
 
-  useEffect(() => {
-    console.log("seeding gridddddd");
-    /*     seedGrid();
-     */
-  }, []);
+  /*   useEffect(() => {
+    const interval = setInterval(() => {
+      simulation();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []); */
 
   const selectCell = (row, column) => {
     console.log("old grid", state.grid);
     let newGrid = arrayClone(state.grid);
     newGrid[row][column] = !newGrid[row][column];
     setState({
+      ...state,
       grid: newGrid,
     });
   };
@@ -51,66 +53,59 @@ function App() {
       grid: newGrid,
     });
   };
+
+  const playSim = () => {
+    simulation();
+  };
   const simulation = () => {
-    console.log("simultaing");
+    console.log("running simultaion");
+
     let gen = state.grid;
+    console.log("gen", gen);
+
     let nextGen = arrayClone(state.grid);
+    console.log("next Gen", nextGen);
 
     for (let x = 1; x < numRows - 1; x++) {
       for (let y = 1; y < numColumns - 1; y++) {
-        console.log("this is the cell", gen[x][y]);
         let neighbors = 0;
         if (gen[x - 1][y + 1]) {
           neighbors++;
-          console.log("1");
         }
         if (gen[x][y + 1]) {
           neighbors++;
-          console.log("2");
         }
         if (gen[x + 1][y + 1] === true) {
           neighbors++;
-          console.log("3");
         }
         if (gen[x - 1][y]) {
           neighbors++;
-          console.log("4");
         }
         if (gen[x + 1][y]) {
           neighbors++;
-          console.log("5");
         }
         if (gen[x - 1][y - 1]) {
           neighbors++;
-          console.log("6");
         }
         if (gen[x][y - 1]) {
           neighbors++;
-          console.log("7");
         }
         if (gen[x + 1][y - 1]) {
           neighbors++;
-          console.log("8");
         }
         if (gen[x][y] && neighbors < 2) {
           nextGen[x][y] = false;
-          console.log("9");
         }
         if (gen[x][y] && neighbors > 3) {
           nextGen[x][y] = false;
-          console.log(gen[x][y], "alive, more than 3 neighbors");
         }
         if (gen[x][y] && neighbors === 2) {
           nextGen[x][y] = true;
-          console.log(gen[x][y], "alive, 2 neighbors");
         }
         if (gen[x][y] && neighbors === 3) {
           nextGen[x][y] = true;
-          console.log(gen[x][y], "alive, 3 neighbors");
         }
         if (!gen[x][y] && neighbors === 3) {
-          console.log(gen[x][y], "dead, 3 neighbors");
-
           nextGen[x][y] = true;
         }
       }
@@ -120,16 +115,10 @@ function App() {
       grid: nextGen,
     });
   };
-  const startButton = () => {
-    clearInterval(interval);
-    let interval = setInterval(simulation, speed);
-  };
-
-  console.log("new grid", state.grid);
 
   return (
     <div className="App">
-      <Header seedGrid={seedGrid} simulation={simulation} />
+      <Header seedGrid={seedGrid} simulation={simulation} playSim={playSim} />
       <Grid
         numColumns={numColumns}
         numRows={numRows}

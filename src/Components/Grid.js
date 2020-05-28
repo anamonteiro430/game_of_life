@@ -7,7 +7,7 @@ export const Grid = (props) => {
   2 nested loops - col is outer and inner is rows
   grid[x][y] is 0 or 1
   */
-
+  /* number of columns * 16pixels(width of cell + 1 pixel of one of the borders) */
   const width = props.numColumns * 16;
   let rows = []; /*store grid */
   for (let x = 0; x < props.numRows; x++) {
@@ -27,8 +27,6 @@ export const Grid = (props) => {
       );
     }
   }
-
-  console.log("this is rows array", rows);
 
   return (
     <>
