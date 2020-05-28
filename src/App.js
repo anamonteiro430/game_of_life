@@ -5,8 +5,8 @@ import { Header } from "./Components/Header";
 import { Gen } from "./Components/Gen";
 
 function App() {
-  const numRows = 30;
-  const numColumns = 50;
+  const numRows = 10;
+  const numColumns = 15;
   const speed = 100;
 
   /* Helper function to clone array */
@@ -15,7 +15,7 @@ function App() {
   }
 
   const [state, setState] = useState({
-    gen: 0,
+    generation: 0,
     grid: Array(numRows)
       .fill()
       .map(() => Array(numColumns).fill(false)),
@@ -28,6 +28,7 @@ function App() {
   }, []);
 
   const selectCell = (row, column) => {
+    console.log("old grid", state.grid);
     let newGrid = arrayClone(state.grid);
     newGrid[row][column] = !newGrid[row][column];
     setState({
@@ -57,44 +58,65 @@ function App() {
 
     for (let x = 1; x < numRows - 1; x++) {
       for (let y = 1; y < numColumns - 1; y++) {
+        console.log("this is the cell", gen[x][y]);
         let neighbors = 0;
         if (gen[x - 1][y + 1]) {
           neighbors++;
+          console.log("1");
         }
         if (gen[x][y + 1]) {
           neighbors++;
+          console.log("2");
         }
         if (gen[x + 1][y + 1] === true) {
           neighbors++;
+          console.log("3");
         }
         if (gen[x - 1][y]) {
           neighbors++;
+          console.log("4");
         }
         if (gen[x + 1][y]) {
           neighbors++;
+          console.log("5");
         }
         if (gen[x - 1][y - 1]) {
           neighbors++;
+          console.log("6");
         }
         if (gen[x][y - 1]) {
           neighbors++;
+          console.log("7");
         }
         if (gen[x + 1][y - 1]) {
           neighbors++;
+          console.log("8");
         }
-        if ((gen[x][y] && neighbors < 2) || (gen[x][y] && neighbors > 3)) {
+        if (gen[x][y] && neighbors < 2) {
           nextGen[x][y] = false;
+          console.log("9");
         }
-        if ((gen[x][y] && neighbors === 2) || (gen[x][y] && neighbors === 3)) {
+        if (gen[x][y] && neighbors > 3) {
+          nextGen[x][y] = false;
+          console.log(gen[x][y], "alive, more than 3 neighbors");
+        }
+        if (gen[x][y] && neighbors === 2) {
           nextGen[x][y] = true;
+          console.log(gen[x][y], "alive, 2 neighbors");
         }
-        if (gen[x][y] === false && neighbors === 3) {
+        if (gen[x][y] && neighbors === 3) {
+          nextGen[x][y] = true;
+          console.log(gen[x][y], "alive, 3 neighbors");
+        }
+        if (!gen[x][y] && neighbors === 3) {
+          console.log(gen[x][y], "dead, 3 neighbors");
+
           nextGen[x][y] = true;
         }
       }
     }
     setState({
-      gen: state.gen + 1,
+      generation: state.generation + 1,
       grid: nextGen,
     });
   };
@@ -102,6 +124,8 @@ function App() {
     clearInterval(interval);
     let interval = setInterval(simulation, speed);
   };
+
+  console.log("new grid", state.grid);
 
   return (
     <div className="App">

@@ -8,7 +8,7 @@ export const Grid = (props) => {
   grid[x][y] is 0 or 1
   */
 
-  const width = props.numColumns * 14;
+  const width = props.numColumns * 16;
   let rows = []; /*store grid */
   for (let x = 0; x < props.numRows; x++) {
     for (let y = 0; y < props.numColumns; y++) {
