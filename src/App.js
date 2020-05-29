@@ -16,6 +16,7 @@ function App() {
       .map(() => Array(numColumns).fill(false)),
   });
   const [running, setRunning] = useState(false);
+  const [speed, setSpeed] = useState(500);
 
   useEffect(() => {
     if (!running) {
@@ -23,7 +24,7 @@ function App() {
     } else {
       const interval = setInterval(() => {
         simulation();
-      }, 100);
+      }, speed);
       return () => clearInterval(interval);
     }
   }, [state.grid, state.generation, running, state.info]);
@@ -60,6 +61,14 @@ function App() {
     });
   };
 
+  const faster = () => {
+    setSpeed(100);
+  };
+
+  const slower = () => {
+    setSpeed(1000);
+  };
+
   const clearGrid = () => {
     let newGrid = arrayClone(state.grid);
     for (let x = 0; x < numRows; x++) {
@@ -77,6 +86,10 @@ function App() {
 
   const stop = () => {
     setRunning(false);
+  };
+
+  const step = () => {
+    simulation();
   };
 
   const simulation = () => {
@@ -148,6 +161,9 @@ function App() {
         running={running}
         setRunning={setRunning}
         stop={stop}
+        faster={faster}
+        slower={slower}
+        step={step}
       />
       <Grid
         numColumns={numColumns}

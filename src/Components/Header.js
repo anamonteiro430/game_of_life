@@ -10,6 +10,11 @@ export const Header = (props) => {
     props.setRunning(false);
   };
 
+  const step = () => {
+    props.setRunning(false);
+    props.step();
+  };
+
   return (
     <>
       <div class="header">
@@ -19,6 +24,9 @@ export const Header = (props) => {
           <button onClick={simulation}>Start</button>
           <button onClick={stop}>Stop</button>
           <button onClick={props.clearGrid}>Clear</button>
+          <button onClick={props.faster}>Faster</button>
+          <button onClick={props.slower}>Slower</button>
+          <button onClick={step}>Next Step</button>
         </div>
       </div>
     </>
