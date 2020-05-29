@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Grid } from "./Components/Grid";
 import { Header } from "./Components/Header";
@@ -48,7 +48,8 @@ function App() {
     clearGrid();
     let newGrid = arrayClone(state.grid);
     for (let x = 0; x < numRows; x++) {
-      for (let y = 0; y < numColumns; y++) {
+      for (let y 
+        = 0; y < numColumns; y++) {
         if (Math.floor(Math.random() * 2) === 1) {
           newGrid[x][y] = true;
         }
@@ -62,11 +63,11 @@ function App() {
   };
 
   const faster = () => {
-    setSpeed(100);
+    setSpeed(speed - 50);
   };
 
   const slower = () => {
-    setSpeed(1000);
+    setSpeed(speed + 50);
   };
 
   const clearGrid = () => {
