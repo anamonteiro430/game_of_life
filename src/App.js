@@ -24,10 +24,10 @@ function App() {
       const interval = setInterval(() => {
         console.log("This will run every second!");
         simulation();
-      }, 100);
+      }, 5000);
       return () => clearInterval(interval);
     }
-  }, [state.grid, state.generation]);
+  }, [state.grid, state.generation, running]);
 
   /* Helper function to clone array */
   function arrayClone(arr) {
@@ -76,79 +76,71 @@ function App() {
     });
   };
 
-  /*  const simulation = useCallback(() => {
-    console.log("running ref is", runningRef.current);
-    if (!runningRef.current) {
-      return;
-    }
-    console.log("SIMUUU", runningRef.current);
-
-    setState({
-      info: "SIMULATION runneddd",
-      generation: state.generation + 1,
-      ...state,
-    });
-    console.log("STATEE", state);
-  }, []); */
+  const stop = () => {
+    console.log("STOPPING");
+    setRunning(false);
+  };
 
   const simulation = () => {
-    /*  setState({
-      generation: state.generation,
-      grid: state.grid,
-    }); */
     setRunning(true);
-    let gen = state.grid;
-    let nextGen = arrayClone(state.grid);
-    for (let x = 1; x < numRows - 1; x++) {
-      for (let y = 1; y < numColumns - 1; y++) {
-        let neighbors = 0;
-        if (gen[x - 1][y + 1]) {
-          neighbors++;
-        }
-        if (gen[x][y + 1]) {
-          neighbors++;
-        }
-        if (gen[x + 1][y + 1] === true) {
-          neighbors++;
-        }
-        if (gen[x - 1][y]) {
-          neighbors++;
-        }
-        if (gen[x + 1][y]) {
-          neighbors++;
-        }
-        if (gen[x - 1][y - 1]) {
-          neighbors++;
-        }
-        if (gen[x][y - 1]) {
-          neighbors++;
-        }
-        if (gen[x + 1][y - 1]) {
-          neighbors++;
-        }
-        if (gen[x][y] && neighbors < 2) {
-          nextGen[x][y] = false;
-        }
-        if (gen[x][y] && neighbors > 3) {
-          nextGen[x][y] = false;
-        }
-        if (gen[x][y] && neighbors === 2) {
-          nextGen[x][y] = true;
-        }
-        if (gen[x][y] && neighbors === 3) {
-          nextGen[x][y] = true;
-        }
-        if (!gen[x][y] && neighbors === 3) {
-          nextGen[x][y] = true;
+
+    if (running) {
+      console.log("ITS RUNING");
+
+      let gen = state.grid;
+      let nextGen = arrayClone(state.grid);
+      for (let x = 1; x < numRows - 1; x++) {
+        for (let y = 1; y < numColumns - 1; y++) {
+          let neighbors = 0;
+          if (gen[x - 1][y + 1]) {
+            neighbors++;
+          }
+          if (gen[x][y + 1]) {
+            neighbors++;
+          }
+          if (gen[x + 1][y + 1] === true) {
+            neighbors++;
+          }
+          if (gen[x - 1][y]) {
+            neighbors++;
+          }
+          if (gen[x + 1][y]) {
+            neighbors++;
+          }
+          if (gen[x - 1][y - 1]) {
+            neighbors++;
+          }
+          if (gen[x][y - 1]) {
+            neighbors++;
+          }
+          if (gen[x + 1][y - 1]) {
+            neighbors++;
+          }
+          if (gen[x][y] && neighbors < 2) {
+            nextGen[x][y] = false;
+          }
+          if (gen[x][y] && neighbors > 3) {
+            nextGen[x][y] = false;
+          }
+          if (gen[x][y] && neighbors === 2) {
+            nextGen[x][y] = true;
+          }
+          if (gen[x][y] && neighbors === 3) {
+            nextGen[x][y] = true;
+          }
+          if (!gen[x][y] && neighbors === 3) {
+            nextGen[x][y] = true;
+          }
         }
       }
+      setState({
+        info: "SIMULATION state",
+        generation: state.generation + 1,
+        grid: nextGen,
+      });
+    } else {
+      console.log("ITS NOT RUNING");
     }
-    setState({
-      info: "SIMULATION state",
-      generation: state.generation + 1,
-      grid: nextGen,
-    });
-    console.log("from app");
   };
 
   return (
@@ -159,6 +151,7 @@ function App() {
         clearGrid={clearGrid}
         running={running}
         setRunning={setRunning}
+        stop={stop}
       />
       <Grid
         numColumns={numColumns}
