@@ -1,6 +1,7 @@
 .header {
-  border: 1px solid white;
   background-color: #313e50;
   height: 15vh;
   color: white;
+  margin: 0;
+  border: 1px solid #313e50;
 }

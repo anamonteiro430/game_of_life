@@ -1,7 +1,7 @@
 .dead {
   border: 1px solid white;
-  width: 15px;
-  height: 15px;
+  width: 4px;
+  height: 4px;
   margin-left: -1px;
   margin-bottom: -1px;
 }
@@ -12,10 +12,10 @@
 
 .alive {
   border: 1px solid white;
-  width: 15px;
-  height: 15px;
+  width: 4px;
+  height: 4px;
   margin: 0;
   margin-left: -1px;
   margin-bottom: -1px;
-  background-color: black;
+  background-color: white;
 }

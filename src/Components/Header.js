@@ -10,7 +10,6 @@ export const Header = (props) => {
     props.setRunning(false);
   };
 
-  console.log("PROPS FROM HEADER", props.running);
   return (
     <>
       <div class="header">

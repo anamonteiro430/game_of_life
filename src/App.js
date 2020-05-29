@@ -5,8 +5,8 @@ import { Header } from "./Components/Header";
 import { Gen } from "./Components/Gen";
 
 function App() {
-  const numRows = 10;
-  const numColumns = 30;
+  const numRows = 50;
+  const numColumns = 100;
 
   const [state, setState] = useState({
     info: "initial state",
@@ -19,15 +19,14 @@ function App() {
 
   useEffect(() => {
     if (!running) {
-      console.log("im not rnning");
+      return;
     } else {
       const interval = setInterval(() => {
-        console.log("This will run every second!");
         simulation();
-      }, 5000);
+      }, 100);
       return () => clearInterval(interval);
     }
-  }, [state.grid, state.generation, running]);
+  }, [state.grid, state.generation, running, state.info]);
 
   /* Helper function to clone array */
   function arrayClone(arr) {
@@ -77,7 +76,6 @@ function App() {
   };
 
   const stop = () => {
-    console.log("STOPPING");
     setRunning(false);
   };
 
@@ -85,8 +83,6 @@ function App() {
     setRunning(true);
 
     if (running) {
-      console.log("ITS RUNING");
-
       let gen = state.grid;
       let nextGen = arrayClone(state.grid);
       for (let x = 1; x < numRows - 1; x++) {
@@ -139,7 +135,7 @@ function App() {
         grid: nextGen,
       });
     } else {
-      console.log("ITS NOT RUNING");
+      return;
     }
   };
 
