@@ -1,9 +1,12 @@
 .App {
   text-align: center;
   background-color: #313e50;
-  height: 100vh;
 }
 
 .root {
   background-color: #313e50;
+}
+
+.header p {
+  padding: 0 200px;
 }
